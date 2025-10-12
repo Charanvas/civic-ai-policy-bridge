@@ -1,4 +1,4 @@
-from flask import Flask, send_from_directory
+from flask import Flask
 from flask_cors import CORS
 from config import Config
 from models import init_db
@@ -11,7 +11,7 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
     
-    # Enable CORS for production
+    # Enable CORS
     CORS(app, resources={
         r"/api/*": {
             "origins": Config.CORS_ORIGINS,
@@ -20,9 +20,11 @@ def create_app():
         }
     })
     
-    # Initialize database
+    # Create directories
     os.makedirs('database', exist_ok=True)
     os.makedirs(Config.UPLOAD_FOLDER, exist_ok=True)
+    
+    # Initialize database
     init_db()
     
     # Register blueprints
@@ -30,32 +32,24 @@ def create_app():
     app.register_blueprint(feedback_bp)
     app.register_blueprint(chatbot_bp)
     
-    # Health check endpoint
-    @app.route('/api/health', methods=['GET'])
-    def health_check():
-        return {
-            "status": "healthy", 
-            "message": "Civic AI Policy Bridge API",
-            "environment": os.getenv('FLASK_ENV', 'production')
-        }, 200
-    
-    # Root endpoint
     @app.route('/', methods=['GET'])
     def root():
         return {
             "message": "Civic AI Policy Bridge API",
-            "version": "1.0.0",
-            "endpoints": {
-                "health": "/api/health",
-                "policies": "/api/policies",
-                "feedback": "/api/policies/{id}/feedback",
-                "chat": "/api/policies/{id}/chat"
-            }
+            "status": "running",
+            "version": "1.0.0"
         }, 200
+    
+    @app.route('/api/health', methods=['GET'])
+    def health_check():
+        return {"status": "healthy"}, 200
     
     return app
 
 if __name__ == '__main__':
     app = create_app()
-    port = int(os.environ.get("PORT", 5000))
-    app.run(debug=False, host='0.0.0.0', port=port)
+    app.run(
+        host='0.0.0.0',
+        port=Config.PORT,
+        debug=False
+    )
