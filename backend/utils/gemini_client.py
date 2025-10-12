@@ -5,7 +5,7 @@ def __init__(self):
     
     # Configure for lower memory usage
     self.generation_config = {
-        'temperature': 0.7,
+        'temperature': 0.3,
         'top_p': 0.95,
         'top_k': 40,
         'max_output_tokens': 2048,  # Reduced from unlimited
