@@ -10,10 +10,13 @@ class Config:
     # Flask
     SECRET_KEY = os.getenv('SECRET_KEY', 'your-secret-key-here')
     UPLOAD_FOLDER = os.getenv('UPLOAD_FOLDER', 'uploads')
-    MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB max file size
+    MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB
     
-    # Database - Use environment variable for production
+    # Database - Railway provides persistent storage automatically
     DATABASE_PATH = os.getenv('DATABASE_PATH', 'database/policies.db')
     
-    # CORS - Allow production frontend URL
+    # CORS
     CORS_ORIGINS = os.getenv('CORS_ORIGINS', 'http://localhost:5173').split(',')
+    
+    # Railway specific
+    PORT = int(os.getenv('PORT', 5000))
