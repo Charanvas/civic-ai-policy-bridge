@@ -1,11 +1,13 @@
+import sys
+import os
+
+# Add backend directory to path
+sys.path.insert(0, os.path.dirname(__file__))
+
 from app import create_app
-from config import Config
 
 app = create_app()
 
 if __name__ == "__main__":
-    app.run(
-        host="0.0.0.0",
-        port=Config.PORT,
-        debug=False
-    )
+    port = int(os.environ.get("PORT", 8000))
+    app.run(host="0.0.0.0", port=port)
