@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-dark-border;
+  }
+  
+  body {
+    @apply bg-dark text-gray-100 antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-dark-card/50 backdrop-blur-sm border border-dark-border rounded-xl shadow-2xl;
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-light via-primary to-accent-rose bg-clip-text text-transparent;
+  }
+  
+  .btn-primary {
+    @apply bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary 
+           text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 
+           shadow-lg hover:shadow-primary/50 transform hover:-translate-y-0.5;
+  }
+  
+  .btn-secondary {
+    @apply bg-dark-lighter hover:bg-dark-border text-primary font-semibold 
+           py-3 px-6 rounded-lg transition-all duration-300 border border-primary/30
+           hover:border-primary/60;
+  }
+  
+  .input-field {
+    @apply w-full bg-dark-lighter border border-dark-border rounded-lg px-4 py-3
+           focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary
+           text-gray-100 placeholder-gray-500 transition-all duration-200;
+  }
+  
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold gradient-text mb-6;
+  }
+  
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 
+           hover:border-primary/40 cursor-pointer transform hover:-translate-y-1;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0F0F0F;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #B76E79;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8B5462;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(183, 110, 121, 0.1), transparent);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}
