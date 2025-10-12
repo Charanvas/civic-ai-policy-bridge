@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: civic-ai-backend
+    runtime: python
+    plan: free
+    buildCommand: cd backend && pip install -r requirements.txt
+    startCommand: cd backend && gunicorn wsgi:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.13
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: SECRET_KEY
+        sync: false
+      - key: FLASK_ENV
+        value: production
+      - key: DATABASE_PATH
+        value: database/policies.db
+      - key: UPLOAD_FOLDER
+        value: uploads
+      - key: CORS_ORIGINS
+        value: https://*.vercel.app,http://localhost:5173
