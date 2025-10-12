@@ -8,15 +8,12 @@ class Config:
     GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
     
     # Flask
-    SECRET_KEY = os.getenv('SECRET_KEY', 'your-secret-key-here')
+    SECRET_KEY = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
     UPLOAD_FOLDER = os.getenv('UPLOAD_FOLDER', 'uploads')
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB
     
-    # Database - Railway provides persistent storage automatically
+    # Database - Will be in ephemeral storage
     DATABASE_PATH = os.getenv('DATABASE_PATH', 'database/policies.db')
     
     # CORS
     CORS_ORIGINS = os.getenv('CORS_ORIGINS', 'http://localhost:5173').split(',')
-    
-    # Railway specific
-    PORT = int(os.getenv('PORT', 5000))
